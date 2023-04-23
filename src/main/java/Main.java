@@ -40,12 +40,15 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        get(("/ping"), (request, response) -> "pong");
 
         post(("/newTreasurePath"), (request, response) -> {
+            long pathID = Long.parseLong(request.queryParams("pathID"));
             int userID = Integer.parseInt(request.queryParams("userID"));
             String message = request.body().substring(0, 280);
 
             TreasurePath treasurePath = new TreasurePath();
+            treasurePath.setPathID(pathID);
             treasurePath.setUserID(userID);
             treasurePath.setMessage(message);
             treasurePath.setTimeCreated(System.currentTimeMillis() / 1000L);
@@ -60,8 +63,8 @@ public class Main {
         post(("/newPathPoint"), (request, response) -> {
             int pathID = Integer.parseInt(request.queryParams("pathID"));
             int pointNumber = Integer.parseInt(request.queryParams("pointNumber"));
-            double latitude = Integer.parseInt(request.queryParams("latitude"));
-            double longitude = Integer.parseInt(request.queryParams("longitude"));
+            double latitude = Double.parseDouble(request.queryParams("latitude"));
+            double longitude = Double.parseDouble(request.queryParams("longitude"));
 
             PathPoint pathPoint = new PathPoint();
             pathPoint.setPathID(pathID);

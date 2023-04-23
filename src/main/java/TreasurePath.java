@@ -4,7 +4,7 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "treasurePaths")
 public class TreasurePath {
     @DatabaseField(generatedId = true)
-    private int pathID;
+    private long pathID;
 
     @DatabaseField
     private int userID;
@@ -19,7 +19,7 @@ public class TreasurePath {
 
     }
 
-    public int getPathID() {
+    public long getPathID() {
         return pathID;
     }
 
@@ -33,6 +33,10 @@ public class TreasurePath {
 
     public long getTimeCreated() {
         return timeCreated;
+    }
+
+    public void setPathID(long pathID) {
+        this.pathID = pathID;
     }
 
     public void setUserID(int userID) {

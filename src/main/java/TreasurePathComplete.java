@@ -1,7 +1,7 @@
 
 public class TreasurePathComplete {
 
-    private int pathID;
+    private long pathID;
 
     private int userID;
     private String message;
@@ -13,7 +13,7 @@ public class TreasurePathComplete {
 
     }
 
-    public int getPathID() {
+    public long getPathID() {
         return pathID;
     }
 
@@ -33,7 +33,7 @@ public class TreasurePathComplete {
         return pathPoints;
     }
 
-    public void setPathID(int pathID) {
+    public void setPathID(long pathID) {
         this.pathID = pathID;
     }
     public void setUserID(int userID) {
