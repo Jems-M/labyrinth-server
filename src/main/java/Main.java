@@ -20,9 +20,9 @@ public class Main {
 
     static ConnectionSource connectionSource;
 
-    static Dao<PathPoint, Integer> pathPointDao;
+    static Dao<PathPoint,Void> pathPointDao;
 
-    static Dao<TreasurePath, Integer> treasurePathDao;
+    static Dao<TreasurePath,Void> treasurePathDao;
 
     static {
         try {
@@ -43,26 +43,38 @@ public class Main {
         get(("/ping"), (request, response) -> "pong");
 
         post(("/newTreasurePath"), (request, response) -> {
+            System.out.println("Request received: newTreasurePath");
             long pathID = Long.parseLong(request.queryParams("pathID"));
-            int userID = Integer.parseInt(request.queryParams("userID"));
-            String message = request.body().substring(0, 280);
+            long userID = Long.parseLong(request.queryParams("userID"));
+            String message = request.body();
 
             TreasurePath treasurePath = new TreasurePath();
+
             treasurePath.setPathID(pathID);
             treasurePath.setUserID(userID);
             treasurePath.setMessage(message);
             treasurePath.setTimeCreated(System.currentTimeMillis() / 1000L);
 
-            treasurePathDao.create(treasurePath);
+            System.out.println("built treasurepath");
+
+            try {
+                treasurePathDao.create(treasurePath);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            System.out.println("dao created new treasurepath entry");
             response.status(201);
-            System.out.println("Request received");
+
+            System.out.println("Request completed: newTreasurePath");
 
             return response.status();
         });
 
         post(("/newPathPoint"), (request, response) -> {
-            int pathID = Integer.parseInt(request.queryParams("pathID"));
-            int pointNumber = Integer.parseInt(request.queryParams("pointNumber"));
+            System.out.println("Request received: newPathPoint");
+            long pathID = Long.parseLong(request.queryParams("pathID"));
+            long pointNumber = Long.parseLong(request.queryParams("pointNumber"));
             double latitude = Double.parseDouble(request.queryParams("latitude"));
             double longitude = Double.parseDouble(request.queryParams("longitude"));
 
@@ -72,10 +84,14 @@ public class Main {
             pathPoint.setLatitude(latitude);
             pathPoint.setLongitude(longitude);
 
-            pathPointDao.create(pathPoint);
+            try {
+                pathPointDao.create(pathPoint);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             response.status(201);
-            System.out.println("Request received");
 
+            System.out.println("Request completed: newPathPoint");
             return response.status();
         });
 
@@ -116,7 +132,7 @@ public class Main {
 
             String json = objectMapper.writeValueAsString(allTreasurePathComplete);
 
-            response.status(201);
+            response.status(200);
 
             return json;
         });

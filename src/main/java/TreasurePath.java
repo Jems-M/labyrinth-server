@@ -3,11 +3,11 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "treasurePaths")
 public class TreasurePath {
-    @DatabaseField(generatedId = true)
+    @DatabaseField
     private long pathID;
 
     @DatabaseField
-    private int userID;
+    private long userID;
 
     @DatabaseField
     private String message;
@@ -23,7 +23,7 @@ public class TreasurePath {
         return pathID;
     }
 
-    public int getUserID() {
+    public long getUserID() {
         return userID;
     }
 
@@ -39,7 +39,7 @@ public class TreasurePath {
         this.pathID = pathID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(long userID) {
         this.userID = userID;
     }
 

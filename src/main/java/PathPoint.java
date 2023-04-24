@@ -5,10 +5,10 @@ import com.j256.ormlite.table.DatabaseTable;
 public class PathPoint {
 
     @DatabaseField
-    private int pathID;
+    private long pathID;
 
     @DatabaseField
-    private int pointNumber;
+    private long pointNumber;
 
     @DatabaseField
     private double latitude;
@@ -20,11 +20,11 @@ public class PathPoint {
 
     }
 
-    public int getPathID() {
+    public long getPathID() {
         return pathID;
     }
 
-    public int getPointNumber() {
+    public long getPointNumber() {
         return pointNumber;
     }
 
@@ -36,11 +36,11 @@ public class PathPoint {
         return longitude;
     }
 
-    public void setPathID(int pathID) {
+    public void setPathID(long pathID) {
         this.pathID = pathID;
     }
 
-    public void setPointNumber(int pointNumber) {
+    public void setPointNumber(long pointNumber) {
         this.pointNumber = pointNumber;
     }
 
